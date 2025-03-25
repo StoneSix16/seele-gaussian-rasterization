@@ -265,6 +265,9 @@ int CudaRasterizer::Rasterizer::forward(
 	int* radii,
 	bool debug)
 {
+	Timer timer(debug);
+	timer.pushRange("render");
+
 	const float focal_y = height / (2.0f * tan_fovy);
 	const float focal_x = width / (2.0f * tan_fovx);
 
@@ -375,7 +378,8 @@ int CudaRasterizer::Rasterizer::forward(
 		imgState.n_contrib,
 		background,
 		out_color), debug)
-
+		
+	timer.pop();
 	return num_rendered;
 }
 
@@ -403,8 +407,8 @@ int CudaRasterizer::Rasterizer::forwardCR(
 	int* radii,
 	bool debug)
 {
-	// Timer timer;
-	// timer.pushRange("render");
+	Timer timer(debug);
+	timer.pushRange("render");
 
 	const float focal_y = height / (2.0f * tan_fovy);
 	const float focal_x = width / (2.0f * tan_fovx);
@@ -520,7 +524,7 @@ int CudaRasterizer::Rasterizer::forwardCR(
 		background,
 		out_color), debug)
 		
-	// timer.pop();
+	timer.pop();
 	return num_rendered;
 }
 

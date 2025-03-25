@@ -79,30 +79,39 @@ namespace CudaRasterizer
 		std::vector<cudaEvent_t> start;
 		std::vector<cudaEvent_t> end;
 		float t;
+		bool debug = false;
+
+		Timer(): debug(false) {}
+		Timer(bool DEBUG): debug(DEBUG) {} 
 		
 		void pushRange(const char* name)
 		{
-			names.push_back(name);
-			start.push_back(cudaEvent_t());
-			end.push_back(cudaEvent_t());
-			cudaEventCreate(&start.back());
-			cudaEventCreate(&end.back());
+			if (debug)
+			{
+				names.push_back(name);
+				start.push_back(cudaEvent_t());
+				end.push_back(cudaEvent_t());
+				cudaEventCreate(&start.back());
+				cudaEventCreate(&end.back());
 
-			cudaEventRecord(start.back());
+				cudaEventRecord(start.back());
+			}
 		}
 
 		void pop()
 		{
-			cudaEventRecord(end.back());
-			cudaEventSynchronize(end.back());
-			cudaEventElapsedTime(&t, start.back(), end.back());
-			// printf("metrics-%s-%f\n", names.back().c_str(), t);
-			
-			cudaEventDestroy(start.back());
-			cudaEventDestroy(end.back());
-			start.pop_back();
-			end.pop_back();
-			names.pop_back();
+			if (debug)
+			{
+				cudaEventRecord(end.back());
+				cudaEventSynchronize(end.back());
+				cudaEventElapsedTime(&t, start.back(), end.back());
+				printf("Execution time: %f ms, FPS: %f frames/sec\n", names.back().c_str(), t, 1000.0 / t);
+				cudaEventDestroy(start.back());
+				cudaEventDestroy(end.back());
+				start.pop_back();
+				end.pop_back();
+				names.pop_back();
+			}
 		}
 	};
 };
