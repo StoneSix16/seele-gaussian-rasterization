@@ -1,6 +1,6 @@
 # Differential Gaussian Rasterization
 
-The rasterizer for the paper "SeeLe: A Unified Acceleration Framework for Real-Time Gaussian Splatting", which proposed a general acceleration framework [SeeLe](https://github.com/Maxime-Tong/Seele) for 3DGS.
+The rasterizer for the paper "SeeLe: A Unified Acceleration Framework for Real-Time Gaussian Splatting", which proposed a general acceleration framework [SeeLe](https://github.com/SJTU-MVCLab/SeeLe) for 3DGS.
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
