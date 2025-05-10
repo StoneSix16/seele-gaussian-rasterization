@@ -16,7 +16,7 @@
 #define NUM_BATCH_SIZE 32
 #define BLOCK_X 16
 #define BLOCK_Y 16
-#define GROUP_X 4
+#define GROUP_X 2
 #define GROUP_Y 2
 #define GAUSSIAN_SIZE 16
 #define WARP_SIZE 32
